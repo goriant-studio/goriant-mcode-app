@@ -6,6 +6,12 @@
     app:startDestination="@+id/nav_transform">
 
     <fragment
+        android:id="@+id/nav_memory"
+        android:name="com.goriant.app.ui.memory.MemoFragment"
+        android:label="@string/menu_memory"
+        tools:layout="@layout/fragment_memory" />
+
+    <fragment
         android:id="@+id/nav_transform"
         android:name="com.goriant.app.ui.transform.TransformFragment"
         android:label="@string/menu_transform"

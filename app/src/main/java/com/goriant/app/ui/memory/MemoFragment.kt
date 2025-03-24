@@ -1,4 +1,4 @@
-package com.goriant.app.ui.transform
+package com.goriant.app.ui.memory
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.goriant.app.R
-import com.goriant.app.databinding.FragmentTransformBinding
+import com.goriant.app.databinding.FragmentMemoryBinding
 import com.goriant.app.databinding.ItemTransformBinding
 
 /**
@@ -22,9 +22,9 @@ import com.goriant.app.databinding.ItemTransformBinding
  * the [RecyclerView] using LinearLayoutManager in a small screen
  * and shows items using GridLayoutManager in a large screen.
  */
-class TransformFragment : Fragment() {
+class MemoFragment : Fragment() {
 
-    private var _binding: FragmentTransformBinding? = null
+    private var _binding: FragmentMemoryBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -35,14 +35,14 @@ class TransformFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val transformViewModel = ViewModelProvider(this).get(TransformViewModel::class.java)
-        _binding = FragmentTransformBinding.inflate(inflater, container, false)
+        val memoViewModel = ViewModelProvider(this).get(MemoViewModel::class.java)
+        _binding = FragmentMemoryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val recyclerView = binding.recyclerviewTransform
-        val adapter = TransformAdapter()
+        val recyclerView = binding.recyclerviewMemory
+        val adapter = MemoAdapter()
         recyclerView.adapter = adapter
-        transformViewModel.texts.observe(viewLifecycleOwner) {
+        memoViewModel.texts.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
         return root
@@ -53,8 +53,8 @@ class TransformFragment : Fragment() {
         _binding = null
     }
 
-    class TransformAdapter :
-        ListAdapter<String, TransformViewHolder>(object : DiffUtil.ItemCallback<String>() {
+    class MemoAdapter :
+        ListAdapter<String, MemoViewHolder>(object : DiffUtil.ItemCallback<String>() {
 
             override fun areItemsTheSame(oldItem: String, newItem: String): Boolean =
                 oldItem == newItem
@@ -63,7 +63,11 @@ class TransformFragment : Fragment() {
                 oldItem == newItem
         }) {
 
-        private val transformDrawables = listOf(
+        private val memoDrawables = listOf(
+            R.mipmap.dragon_green,
+            R.drawable.avatar_10,
+            R.drawable.avatar_11,
+            R.drawable.avatar_12,
             R.drawable.avatar_1,
             R.drawable.avatar_2,
             R.drawable.avatar_3,
@@ -73,33 +77,29 @@ class TransformFragment : Fragment() {
             R.drawable.avatar_7,
             R.drawable.avatar_8,
             R.drawable.avatar_9,
-            R.drawable.avatar_10,
-            R.drawable.avatar_11,
-            R.drawable.avatar_12,
             R.drawable.avatar_13,
             R.drawable.avatar_14,
             R.drawable.avatar_15,
             R.drawable.avatar_16,
-            R.mipmap.dragon_green
         )
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransformViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemoViewHolder {
             val binding = ItemTransformBinding.inflate(LayoutInflater.from(parent.context))
-            return TransformViewHolder(binding)
+            return MemoViewHolder(binding)
         }
 
-        override fun onBindViewHolder(holder: TransformViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: MemoViewHolder, position: Int) {
             holder.textView.text = getItem(position)
-            holder.imageView.setImageDrawable(
-                ResourcesCompat.getDrawable(holder.imageView.resources, transformDrawables[position], null)
+            holder.memoImageView.setImageDrawable(
+                ResourcesCompat.getDrawable(holder.memoImageView.resources, memoDrawables[position], null)
             )
         }
     }
 
-    class TransformViewHolder(binding: ItemTransformBinding) :
+    class MemoViewHolder(binding: ItemTransformBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        val imageView: ImageView = binding.imageViewItemTransform
+        val memoImageView: ImageView = binding.imageViewItemTransform
         val textView: TextView = binding.textViewItemTransform
     }
 }
