@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goriant.app.databinding.FragmentMemoryBinding
 import com.goriant.app.game.MemoryGame
+import com.goriant.app.game.SoundManager
 import com.goriant.app.model.MemoryCard
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -39,6 +40,8 @@ class MemoryGameViewModel(application: Application) : ViewModel() {
     // For demonstration, just use a small set of placeholder image resource IDs
 
     private var countDownTimer: CountDownTimer? = null
+
+    private var isFlippingInProgress = false
 
     // Initialize list of images dynamically using file names
     // Use the application context (from AndroidViewModel)
@@ -79,9 +82,8 @@ class MemoryGameViewModel(application: Application) : ViewModel() {
         }.start()
     }
 
-    private var isFlippingInProgress = false
-
     fun flipCard(memoryCard: MemoryCard) {
+        SoundManager.playSound("select")
         // If card is already matched, face up, or flipping is in progress, do nothing
         if (memoryCard.isMatched.value || memoryCard.isFaceUp.value || isFlippingInProgress) return
 
@@ -101,6 +103,8 @@ class MemoryGameViewModel(application: Application) : ViewModel() {
                 secondFlippedCard.isMatched.value = true
                 firstFlippedMemoryCard = null
                 checkIfAllMatched()
+                // event match
+                SoundManager.playSound("match_pair")
             } else {
                 // Not a match -> flip both back down after a short delay
                 val oldFirstCard = firstFlippedMemoryCard
