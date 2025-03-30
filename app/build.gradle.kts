@@ -45,43 +45,34 @@ android {
     }
 }
 
-
 dependencies {
-    val composeBom = platform("androidx.compose:compose-bom:2024.02.00") // Use a stable BOM version
+    // Compose BOM (already included in your project)
+    val composeBom = platform("androidx.compose:compose-bom:2025.03.00")
     implementation(composeBom)
-    androidTestImplementation(composeBom)
 
-    // Latest Stable Material 3
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.material3:material3-window-size-class")
-
-    // Latest Stable Adaptive Navigation (still in alpha but more recent than previous result)
-    implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.3.1")
-
-    // Core Compose dependencies
+    // Jetpack Compose UI dependencies (already included)
     implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.runtime:runtime")
+    implementation("androidx.compose.material3:material3:1.3.1")
     implementation("androidx.compose.foundation:foundation")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1")
 
-    // Android Studio Preview support
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
+    // Activity Compose: Provides the setContent extension for ComponentActivity
+    implementation("androidx.activity:activity-compose:1.7.2") // Use the latest stable version
 
-    // Core Android dependencies
-    implementation("androidx.core:core-ktx:1.12.0")// latest
-    implementation("androidx.appcompat:appcompat:1.6.1")// latest
+    // Lifecycle ViewModel Compose: Provides viewModel() composable
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1") // Use the latest stable version
 
-    implementation("androidx.recyclerview:recyclerview:1.3.2")// latest
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")// latest
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")// latest
-
-    // Navigation component (latest)
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")// latest
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")// latest
+    // Other dependencies from your project...
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.9")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.9")
 
     // Testing dependencies
-    testImplementation("junit:junit:4.13.2") // latest
-    androidTestImplementation("androidx.test.ext:junit:1.1.5") // latest
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")// latest
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }

@@ -1,6 +1,8 @@
 [versions]
 agp = "8.9.0"
+androidxNavigationFragmentKtx = "2.7.5"
 foundation = "1.7.8"
+googleMaterial = "1.11.0"
 kotlin = "2.0.21"
 coreKtx = "1.10.1"
 junit = "4.13.2"
@@ -28,6 +30,7 @@ androidx-foundation = { module = "androidx.compose.foundation:foundation", versi
 androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3WindowSizeClass" }
 androidx-material3-adaptive-navigation-suite = { module = "androidx.compose.material3:material3-adaptive-navigation-suite", version.ref = "material3AdaptiveNavigationSuite" }
 androidx-material3-window-size-class1 = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "material3WindowSizeClass" }
+androidx-navigation-fragment-ktx-v275 = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidxNavigationFragmentKtx" }
 androidx-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "runtime" }
 androidx-ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
 androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
@@ -43,6 +46,7 @@ androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecy
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+material-v1110 = { module = "com.google.android.material:material", version.ref = "googleMaterial" }
 material-v1120 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtxVersion" }
 navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtxVersion" }

@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class MemoViewModel : ViewModel() {
 
     private val _texts = MutableLiveData<List<String>>().apply {
-        value = (1..17).mapIndexed { _, i ->
+        value = (1..100).mapIndexed { _, i ->
             "This is item # $i"
         }
     }
