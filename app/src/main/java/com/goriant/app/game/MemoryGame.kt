@@ -9,8 +9,8 @@ class MemoryGame(
     fun createCards(): List<MemoryCard> {
         val numberOfPairs = when (level) {
             1 -> 8
-            2,3 -> 12
-            else -> 24
+            2,3 -> 8
+            else -> 12
         }
 
         val selectedImages = images.shuffled().take(numberOfPairs)

@@ -11,13 +11,27 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.goriant.app.R
 
+// title
+val H1 = 16.em
+val TEXT_COLOR_PRIMARY = Color(0xFF00FFD5)
+
+// headline
+val TEXT_COLOR_SECONDARY = Color(0xFFD01F70)
+val H2 = 36.sp
+val H2_PADDING = 16.dp
+
+// content
+val H3 = 24.sp
+
 private val LightColors = lightColorScheme(
-    primary = Color(0xFFFFA726),   // A bright orange
-    secondary = Color(0xFFFFCC80), // Lighter orange accent
-    background = Color(0xFFFFF3E0),// Light pastel background
+    primary = Color(0xFF26A69A),   // Fresh teal for a modern, casual vibe
+    secondary = Color(0xFFFF8A65), // Soft, approachable orange accent
+    background = Color(0xFFE0F7FA),// Light, airy cyan background for brightness
     surface = Color(0xFFFFFFFF),
     onPrimary = Color.White,
     onSecondary = Color.Black,
@@ -26,24 +40,23 @@ private val LightColors = lightColorScheme(
 )
 
 private val DarkColors = darkColorScheme(
-    // In a real app, pick suitable dark theme colors
-    primary = Color(0xFFF57C00),
-    secondary = Color(0xFFFFB74D),
-    background = Color(0xFF212121),
-    surface = Color(0xFF424242),
+    primary = Color(0xFF00897B),   // Deeper teal to maintain consistency in dark mode
+    secondary = Color(0xFFD84315), // Rich, muted orange for a subtle pop
+    background = Color(0xFF263238),// Dark neutral backdrop for comfort in low light
+    surface = Color(0xFF37474F),
     onPrimary = Color.White,
-    onSecondary = Color.Black,
+    onSecondary = Color.White,
     onBackground = Color.White,
     onSurface = Color.White,
 )
 
-val CasualFont = FontFamily(
-    Font(R.font.casual_regular_font)
+val SuperShinyFont = FontFamily(
+    Font(R.font.super_shiny)
 )
 
 val Typography = Typography(
     headlineSmall = TextStyle(
-        fontFamily = CasualFont,
+        fontFamily = SuperShinyFont,
         fontSize = 24.sp,
         fontWeight = FontWeight.Bold
     ),

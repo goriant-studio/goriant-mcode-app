@@ -43,6 +43,11 @@ class MemoryGameViewModel(application: Application) : ViewModel() {
 
     private var isFlippingInProgress = false
 
+    // Flag to indicate that the level is complete
+    var levelCompleteEvent by mutableStateOf(false)
+        private set
+
+
     // Initialize list of images dynamically using file names
     // Use the application context (from AndroidViewModel)
     private var allImages: List<Int> = MemoFragment.FoodDrawablesGenerator.generateFoodDrawables(
@@ -63,10 +68,10 @@ class MemoryGameViewModel(application: Application) : ViewModel() {
 
         // Reset the timer value based on level
         timerValue = when (level) {
-            1 -> 30
-            2 -> 45
-            3 -> 60
-            else -> 75
+            1 -> 120
+            2 -> 110
+            3 -> 100
+            else -> 90
         }
 
         // Start the timer
@@ -135,5 +140,58 @@ class MemoryGameViewModel(application: Application) : ViewModel() {
             level++
             startNewGame()
         }
+    }
+
+    // Start the timer using the current timerValue
+    fun startTimer() {
+        // Cancel any existing timer
+        countDownTimer?.cancel()
+        countDownTimer = object : CountDownTimer(timerValue * 1000L, 1000L) {
+            override fun onTick(millisUntilFinished: Long) {
+                timerValue = (millisUntilFinished / 1000).toInt()
+            }
+
+            override fun onFinish() {
+                timerValue = 0
+            }
+        }.start()
+    }
+
+    // Example: Call this function after each card match check
+    fun checkIfAllPairsFound() {
+        // Assume memoryCards is a list of MemoryCard, and each card has an `isMatched` property
+        if (memoryCards.all { it.isMatched.value }) {
+            // All pairs have been matched
+            countDownTimer?.cancel() // Stop the timer since the level is complete
+            triggerLevelComplete()   // Fire the level complete event
+        }
+    }
+
+    // Trigger the level complete event
+    fun triggerLevelComplete() {
+        levelCompleteEvent = true
+    }
+
+    // Reset the level complete event after it has been handled
+    fun resetLevelCompleteEvent() {
+        levelCompleteEvent = false
+    }
+
+    // Example function to simulate level completion from game logic
+    fun onUserCompletedLevel() {
+        // Cancel timer if running
+        countDownTimer?.cancel()
+        triggerLevelComplete()
+    }
+
+    // Prepare for the next level: update level, timer value, and restart the timer
+    fun prepareNextLevel() {
+        level++
+        timerValue = when (level) {
+            1 -> 30
+            2 -> 45
+            else -> 60
+        }
+        startTimer()
     }
 }

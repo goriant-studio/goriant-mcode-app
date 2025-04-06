@@ -10,5 +10,5 @@ data class MemoryCard (
     val id: Int,
     val imageResId: Int,
     val isFaceUp: MutableState<Boolean> = mutableStateOf(false),
-    val isMatched: MutableState<Boolean> = mutableStateOf(false)
+    val isMatched: MutableState<Boolean> = mutableStateOf(false),
 )

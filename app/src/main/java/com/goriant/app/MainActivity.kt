@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
             MemoryGameTheme {
-                MemoryGameScreen().Screen()
+                MemoryGameScreen().MainScreen()
             }
         }
     }
