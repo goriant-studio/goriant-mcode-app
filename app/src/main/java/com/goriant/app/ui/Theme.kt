@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import com.goriant.app.R
 
 // title
-val H1 = 16.em
+val H1 = 14.em
 val TEXT_COLOR_PRIMARY = Color(0xFF00FFD5)
 
 // headline

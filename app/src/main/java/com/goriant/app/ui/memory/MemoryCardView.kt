@@ -70,7 +70,7 @@ class MemoryCardView {
         BoxWithConstraints(
             modifier = modifier
                 .padding(6.dp)
-                .size(100.dp)
+                .size(140.dp)
                 .clickable { onClick() }
         ) {
             val iconSize: Dp = maxWidth * 0.8f // 80% of the card’s width
