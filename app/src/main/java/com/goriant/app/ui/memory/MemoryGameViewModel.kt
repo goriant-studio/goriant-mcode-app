@@ -107,7 +107,9 @@ class MemoryGameViewModel(application: Application) : ViewModel() {
                 firstFlippedMemoryCard?.isMatched?.value = true
                 secondFlippedCard.isMatched.value = true
                 firstFlippedMemoryCard = null
-                checkIfAllMatched()
+
+                checkIfAllPairsFound()
+
                 // event match
                 SoundManager.playSound("match_pair")
             } else {
@@ -134,8 +136,9 @@ class MemoryGameViewModel(application: Application) : ViewModel() {
 
     }
 
-    private fun checkIfAllMatched() {
+    fun nextLevel() {
         if (memoryCards.all { it.isMatched.value }) {
+            levelCompleteEvent = false
             // All cards matched. Increase level, start new game
             level++
             startNewGame()
@@ -173,25 +176,33 @@ class MemoryGameViewModel(application: Application) : ViewModel() {
     }
 
     // Reset the level complete event after it has been handled
-    fun resetLevelCompleteEvent() {
+    fun replay() {
         levelCompleteEvent = false
-    }
-
-    // Example function to simulate level completion from game logic
-    fun onUserCompletedLevel() {
-        // Cancel timer if running
+        // Cancel current timer
         countDownTimer?.cancel()
-        triggerLevelComplete()
+
+        // Reset first card, flipping state
+        firstFlippedMemoryCard = null
+        isFlippingInProgress = false
+
+        // Restart the game with current level
+        startNewGame()
     }
 
-    // Prepare for the next level: update level, timer value, and restart the timer
-    fun prepareNextLevel() {
-        level++
-        timerValue = when (level) {
-            1 -> 30
-            2 -> 45
-            else -> 60
-        }
-        startTimer()
+    fun resetGame() {
+        // Cancel existing timer
+        countDownTimer?.cancel()
+        countDownTimer = null
+
+        // Reset level and all states
+        level = 1
+        timerValue = 0
+        firstFlippedMemoryCard = null
+        isFlippingInProgress = false
+        levelCompleteEvent = false
+        memoryCards = emptyList()
+
+        // Start a fresh new game
+        startNewGame()
     }
 }

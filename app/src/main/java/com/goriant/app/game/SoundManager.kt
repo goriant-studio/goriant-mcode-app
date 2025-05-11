@@ -35,7 +35,7 @@ object SoundManager {
 
     fun playBackgroundMusic(context: Context) {
         if (backgroundPlayer == null) {
-            backgroundPlayer = MediaPlayer.create(context, R.raw.background_music)
+            backgroundPlayer = MediaPlayer.create(context.applicationContext, R.raw.background_music)
             backgroundPlayer?.isLooping = true
             backgroundPlayer?.setVolume(0.5f, 0.5f)
         }
@@ -46,10 +46,22 @@ object SoundManager {
         backgroundPlayer?.pause()
     }
 
+    fun isMusicPlaying(): Boolean {
+        return backgroundPlayer?.isPlaying == true
+    }
+
     fun release() {
         soundPool?.release()
         soundPool = null
         backgroundPlayer?.release()
         backgroundPlayer = null
+    }
+
+    fun pause() {
+        backgroundPlayer?.pause()
+    }
+
+    fun resume() {
+        backgroundPlayer?.start()
     }
 }

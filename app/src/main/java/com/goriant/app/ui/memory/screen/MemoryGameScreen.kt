@@ -2,12 +2,6 @@ package com.goriant.app.ui.memory.screen
 
 import android.annotation.SuppressLint
 import android.app.Application
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -37,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goriant.app.R
 import com.goriant.app.game.MemoryGameViewModelFactory
-import com.goriant.app.model.MemoryCard
 import com.goriant.app.ui.memory.MemoryCardView
 import com.goriant.app.ui.memory.MemoryGameViewModel
 import com.goriant.app.ui.memory.fragment.BannerFragment
@@ -66,8 +59,9 @@ class MemoryGameScreen {
         // If a level complete event is triggered, show the dialog
         if (memoryGameViewModel.levelCompleteEvent) {
             GameLevelCompleteDialog().Show(
-                onDismiss = { memoryGameViewModel.resetLevelCompleteEvent() },
-                onNextLevel = { memoryGameViewModel.prepareNextLevel() }
+                show = true,
+                onReplay = { memoryGameViewModel.replay() },
+                onNextLevel = { memoryGameViewModel.nextLevel() }
             )
         }
 
@@ -86,7 +80,7 @@ class MemoryGameScreen {
                 containerColor = Color.Transparent,
                 bottomBar = {
                     FooterFragment().Display(
-                        onHomeClick = { /* Handle home click */ },
+                        onHomeClickResetGame = { memoryGameViewModel.resetGame() },
                         onRestartClick = { memoryGameViewModel.startNewGame() },
                         onSettingsClick = { /* Handle settings click */ },
                         onHelpClick = { showTutorialState.value = true },
@@ -98,7 +92,7 @@ class MemoryGameScreen {
                     modifier = Modifier
                         .padding(
                             top = innerPadding.calculateTopPadding(),
-                            bottom = innerPadding.calculateBottomPadding()*1.1f
+                            bottom = innerPadding.calculateBottomPadding()*1.05f
                         )
                 )
             }
@@ -149,10 +143,8 @@ class MemoryGameScreen {
                             contentAlignment = Alignment.Center
                         ) {
                             val card = cards[index]
-                            MemoryCardView().InitView(
-                                memoryGameViewModel,
-                                card,
-                                onClick = { memoryGameViewModel.flipCard(card) }
+                            card.selectedIndex.value = index
+                            MemoryCardView().InitView(card, onClick = { memoryGameViewModel.flipCard(card) }
                             )
                         }
                     }

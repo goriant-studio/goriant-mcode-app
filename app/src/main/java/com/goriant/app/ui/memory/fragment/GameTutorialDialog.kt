@@ -11,9 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.goriant.app.ui.H2
-import com.goriant.app.ui.H3
-import com.goriant.app.ui.TEXT_COLOR_SECONDARY
+import com.goriant.app.style.H2
+import com.goriant.app.style.H3
+import com.goriant.app.style.TEXT_COLOR_SECONDARY
 
 class GameTutorialDialog {
 

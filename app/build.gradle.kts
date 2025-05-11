@@ -19,12 +19,20 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            buildConfigField("String", "ENVIRONMENT", "\"development\"")
+            buildConfigField("Boolean", "LOG_ENABLED", "false")
+            buildConfigField("Boolean", "DEV", "true")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "ENVIRONMENT", "\"production\"")
+            buildConfigField("Boolean", "LOG_ENABLED", "false")
+            buildConfigField("Boolean", "DEV", "false")
         }
     }
     compileOptions {
@@ -38,6 +46,7 @@ android {
     buildFeatures {
         viewBinding = true
         compose = true
+        buildConfig = true
     }
 
     composeOptions {
@@ -51,9 +60,9 @@ dependencies {
     implementation(composeBom)
 
     // Jetpack Compose UI dependencies (already included)
-    implementation("androidx.compose.ui:ui")
+    implementation(libs.ui)
     implementation("androidx.compose.material3:material3:1.3.1")
-    implementation("androidx.compose.foundation:foundation")
+    implementation(libs.foundation)
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1")
 
     // Activity Compose: Provides the setContent extension for ComponentActivity
@@ -63,6 +72,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1") // Use the latest stable version
 
     // Other dependencies from your project...
+    implementation("androidx.window:window:1.3.0")
+    implementation("androidx.window:window-core:1.3.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.recyclerview:recyclerview:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")

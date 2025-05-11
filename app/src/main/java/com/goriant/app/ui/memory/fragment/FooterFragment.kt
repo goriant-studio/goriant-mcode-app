@@ -9,13 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.goriant.app.ui.H2
+import com.goriant.app.style.H2
 
 class FooterFragment {
 
     @Composable
     fun Display(
-        onHomeClick: () -> Unit,
+        onHomeClickResetGame: () -> Unit,
         onRestartClick: () -> Unit,
         onSettingsClick: () -> Unit,
         onHelpClick: () -> Unit
@@ -24,7 +24,7 @@ class FooterFragment {
             containerColor = MaterialTheme.colorScheme.surface,
             tonalElevation = 4.dp
         ) {
-            IconButton(onClick = onHomeClick) {
+            IconButton(onClick = onHomeClickResetGame) {
                 Text("🏠", fontSize = H2)
             }
             Spacer(Modifier.weight(1f))

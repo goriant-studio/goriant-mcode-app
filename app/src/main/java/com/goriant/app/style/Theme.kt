@@ -1,4 +1,4 @@
-package com.goriant.app.ui
+package com.goriant.app.style
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -22,11 +22,14 @@ val TEXT_COLOR_PRIMARY = Color(0xFF00FFD5)
 
 // headline
 val TEXT_COLOR_SECONDARY = Color(0xFFD01F70)
-val H2 = 36.sp
+val H2 = 32.sp
 val H2_PADDING = 16.dp
 
 // content
 val H3 = 24.sp
+
+// card size
+val CARD_SIZE = 130.dp
 
 private val LightColors = lightColorScheme(
     primary = Color(0xFF26A69A),   // Fresh teal for a modern, casual vibe

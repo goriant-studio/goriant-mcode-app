@@ -24,10 +24,10 @@ import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.goriant.app.ui.H1
-import com.goriant.app.ui.H2
-import com.goriant.app.ui.H2_PADDING
-import com.goriant.app.ui.TEXT_COLOR_SECONDARY
+import com.goriant.app.style.H1
+import com.goriant.app.style.H2
+import com.goriant.app.style.H2_PADDING
+import com.goriant.app.style.TEXT_COLOR_SECONDARY
 import com.goriant.app.ui.memory.MemoryGameViewModel
 
 class BannerFragment {

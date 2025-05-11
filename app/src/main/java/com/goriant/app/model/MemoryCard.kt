@@ -1,6 +1,7 @@
 package com.goriant.app.model
 
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 
 /**
@@ -11,4 +12,5 @@ data class MemoryCard (
     val imageResId: Int,
     val isFaceUp: MutableState<Boolean> = mutableStateOf(false),
     val isMatched: MutableState<Boolean> = mutableStateOf(false),
+    val selectedIndex: MutableState<Int> = mutableIntStateOf(-1),
 )

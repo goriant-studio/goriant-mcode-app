@@ -9,28 +9,33 @@ class GameLevelCompleteDialog {
 
     @Composable
     fun Show(
-        onDismiss: () -> Unit,
+        show: Boolean,
+        onReplay: () -> Unit,
         onNextLevel: () -> Unit
     ) {
-        AlertDialog(
-            onDismissRequest = onDismiss,
-            title = { Text(text = "Level Complete!") },
-            text = { Text(text = "Congratulations! You have completed the level.") },
-            confirmButton = {
-                Button(onClick = {
-                    onNextLevel()
-                    onDismiss()
-                }) {
-                    Text("Next Level")
+        if(show) {
+            AlertDialog(
+                onDismissRequest = {
+                    onReplay()
+                    onNextLevel() },
+                title = { Text(text = "Level Complete!") },
+                text = { Text(text = "Congratulations! You have completed the level.") },
+                confirmButton = {
+                    Button(onClick = {
+                            onNextLevel()
+                            onReplay() }
+                    ) {
+                        Text("Next Level")
+                    }
+                },
+                dismissButton = {
+                    Button(
+                        onClick = onReplay
+                    ) {
+                        Text("Replay")
+                    }
                 }
-            },
-            dismissButton = {
-                Button(
-                    onClick = onDismiss
-                ) {
-                    Text("Close")
-                }
-            }
-        )
+            )
+        }
     }
 }

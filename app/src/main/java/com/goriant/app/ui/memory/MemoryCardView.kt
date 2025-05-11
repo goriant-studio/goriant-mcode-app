@@ -1,19 +1,17 @@
 package com.goriant.app.ui.memory
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -29,26 +27,30 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
+import com.goriant.app.BuildConfig
 import com.goriant.app.R
 import com.goriant.app.model.MemoryCard
+import com.goriant.app.style.CARD_SIZE
 
 class MemoryCardView {
 
     @SuppressLint("UnusedBoxWithConstraintsScope")
     @Composable
     fun InitView(
-        memoryGameViewModel: MemoryGameViewModel,
         card: MemoryCard,
         onClick: () -> Unit,
         modifier: Modifier = Modifier
     ) {
-        memoryGameViewModel.checkIfAllPairsFound()
-        // Animate flipping
+
+        val isDevMode = BuildConfig.DEV
+        Log.i("TAG", "isDevMode $isDevMode")
+        val forceFaceUp = isDevMode && !card.isMatched.value
+
         val rotation by animateFloatAsState(
-            targetValue = if (card.isFaceUp.value || card.isMatched.value) 180f else 0f,
+            targetValue = if (forceFaceUp || card.isFaceUp.value || card.isMatched.value) 180f else 0f,
             animationSpec = tween(durationMillis = 300)
         )
+
 
         // Animate scale for a little effect
         val scale by animateFloatAsState(
@@ -70,7 +72,7 @@ class MemoryCardView {
         BoxWithConstraints(
             modifier = modifier
                 .padding(6.dp)
-                .size(140.dp)
+                .size(CARD_SIZE)
                 .clickable { onClick() }
         ) {
             val iconSize: Dp = maxWidth * 0.8f // 80% of the card’s width
@@ -89,7 +91,9 @@ class MemoryCardView {
                         FaceUpSide(
                             iconSize,
                             faceUpColor = faceUpColor,
-                            imageResId = card.imageResId
+                            imageResId = card.imageResId,
+                            selectedIndex = if (BuildConfig.DEV) card.selectedIndex.value else null,
+                            isMatched = card.isMatched.value
                         )
                     } else {
                         // Card is face down
@@ -104,10 +108,25 @@ class MemoryCardView {
 
 
     @Composable
-    fun FaceUpSide(iconSize: Dp, faceUpColor: Color, imageResId: Int) {
+    fun FaceUpSide(iconSize: Dp,
+                   faceUpColor: Color,
+                   imageResId: Int,
+                   selectedIndex: Int?,
+                   isMatched: Boolean) {
+        val debugBorderColor = Color(0xFFFFA000)
+
+        val borderColor = when {
+            isMatched -> Color.Green // Green border for matched cards
+            selectedIndex == 0 -> Color.Red
+            selectedIndex == 1 -> Color.Blue
+            else -> Color(0xFFFFA000) // Default dark yellow
+        }
+
         // Another layer for the background color
         Box(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .border(4.dp, borderColor),
             contentAlignment = Alignment.Center,
         ) {
             Icon(
